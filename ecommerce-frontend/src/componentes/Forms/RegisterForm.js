@@ -1,20 +1,27 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../firebaseConfig';
 
-const Login = () => {
+const Register = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+
+    if (password !== confirmPassword) {
+      setError('Las contraseñas no coinciden');
+      return;
+    }
+
     try {
-      await signInWithEmailAndPassword(auth, email, password);
-      alert('Inicio de sesión exitoso');
+      await createUserWithEmailAndPassword(auth, email, password);
+      alert('Registro exitoso');
       navigate('/');  // Redirigir a la página principal
     } catch (error) {
       setError(error.message);
@@ -24,7 +31,7 @@ const Login = () => {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100">
       <div className="bg-white p-8 rounded shadow-md w-full max-w-md">
-        <h1 className="text-3xl font-bold text-gray-900 mb-6 text-center">Iniciar sesión</h1>
+        <h1 className="text-3xl font-bold text-gray-900 mb-6 text-center">Registrarse</h1>
         <form onSubmit={handleSubmit}>
           {error && <p className="text-red-600 mb-4">{error}</p>}
           <input
@@ -41,8 +48,15 @@ const Login = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
+          <input
+            type="password"
+            placeholder="Confirmar Contraseña"
+            className="w-full px-4 py-2 mb-4 border rounded"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+          />
           <button type="submit" className="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700 transition duration-300">
-            Iniciar sesión
+            Registrarse
           </button>
         </form>
       </div>
@@ -50,4 +64,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;

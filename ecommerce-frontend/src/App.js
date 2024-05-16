@@ -1,19 +1,23 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Header from './componentes/Header/Header';
+import Footer from './componentes/Footer/Footer';
 import Banner from './componentes/Banner/Banner';
-import CategoriesSection from './componentes/Categories/CategoriesSection'; 
+import CategoriesSection from './componentes/Categories/CategoriesSection';
 import Products from './componentes/Products/Products';
 import ProductDetail from './componentes/Products/ProductDetail';
-import Footer from './componentes/Footer/Footer';
 import Search from './componentes/Search/Search';
-import Login from './componentes/Login/Login';
-import Register from './componentes/Register/Register';
+import Login from './componentes/Forms/LoginForm';
+import Register from './componentes/Forms/RegisterForm';
 import MyPurchases from './componentes/MyPurchases/MyPurchases';
 import Cart from './componentes/Cart/Cart';
 import Profile from './componentes/Profile/Profile';
 import Offers from './componentes/Offers/Offers';
-import { CartProvider } from './componentes/context/CartContext';
+import Wishlist from './componentes/Wishlist/Wishlist';
+import Notification from './componentes/Notifications/Notifications';
+import About from './componentes/About/About';
+import Contact from './componentes/Contact/Contact';
+import Terms from './componentes/Terms/Terms';
 import './index.css';
 
 const products = [
@@ -95,9 +99,7 @@ const categories = [
       { id: 44, name: 'Vestuario Mujer 7', price: '$109', image: '/imagenes/vestuariomujer/mujer7.webp', description: 'Descripción del vestuario mujer 7' },
       { id: 45, name: 'Vestuario Mujer 8', price: '$119', image: '/imagenes/vestuariomujer/mujer8.webp', description: 'Descripción del vestuario mujer 8' },
       { id: 46, name: 'Vestuario Mujer 9', price: '$129', image: '/imagenes/vestuariomujer/mujer9.webp', description: 'Descripción del vestuario mujer 9' },
-      { id: 47, name: 'Vestuario Mujer 10', price: '$139', image: '/imagenes/vestuariomujer/mujer10.webp', description: 'Descripción del vestuario mujer 10' },
-      { id: 48, name: 'Vestuario Mujer 11', price: '$149', image: '/imagenes/vestuariomujer/mujer11.webp', description: 'Descripción del vestuario mujer 11' },
-      { id: 49, name: 'Vestuario Mujer 12', price: '$159', image: '/imagenes/vestuariomujer/mujer12.webp', description: 'Descripción del vestuario mujer 12' }
+      { id: 47, name: 'Vestuario Mujer 10', price: '$139', image: '/imagenes/vestuariomujer/mujer10.webp', description: 'Descripción del vestuario mujer 10' }
     ],
   }
 ];
@@ -106,10 +108,11 @@ const allProducts = [...products, ...categories.flatMap(category => category.pro
 
 function App() {
   return (
-    <CartProvider>
-      <Router>
-        <div className="App">
-          <Header />
+    <Router>
+      <div className="flex flex-col min-h-screen">
+        <Header />
+        <Notification />
+        <div className="flex-grow">
           <Routes>
             <Route path="/" element={<MainLayout />} />
             <Route path="/search" element={<Search />} />
@@ -117,14 +120,19 @@ function App() {
             <Route path="/register" element={<Register />} />
             <Route path="/mypurchases" element={<MyPurchases />} />
             <Route path="/categories" element={<CategoriesSection />} />
-            <Route path="/product/:id" element={<ProductDetail products={allProducts} />} />
+            <Route path="/product/:id" element={<ProductDetail products={allProducts} reviews={[]} />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/offers" element={<Offers />} />
+            <Route path="/wishlist" element={<Wishlist />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/terms" element={<Terms />} />
           </Routes>
         </div>
-      </Router>
-    </CartProvider>
+        <Footer />
+      </div>
+    </Router>
   );
 }
 
@@ -132,8 +140,7 @@ const MainLayout = () => (
   <>
     <Banner />
     <CategoriesSection />
-    <Products />
-    <Footer />
+    <Products products={products} />
   </>
 );
 

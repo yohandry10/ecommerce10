@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FaUserCircle, FaShoppingCart, FaBars, FaSignInAlt, FaUserPlus, FaMapMarkerAlt } from 'react-icons/fa';
-import { useCart } from '../context/CartContext';
+import { useCart } from '../contexts/CartContext';
 import { auth } from '../../firebaseConfig';
 import LocationModal from '../LocationModal/LocationModal';
 
@@ -91,7 +91,9 @@ const Header = () => {
           <Link to="/" className="text-gray-700 hover:text-gray-900 px-4">Inicio</Link>
           <Link to="/offers" className="text-gray-700 hover:text-gray-900 px-4">Ofertas</Link>
           <Link to="/categories" className="text-gray-700 hover:text-gray-900 px-4">Categorías</Link>
-          <Link to="/help" className="text-gray-700 hover:text-gray-900 px-4">Ayuda</Link>
+          <Link to="/about" className="text-gray-700 hover:text-gray-900 px-4">Acerca de Nosotros</Link>
+          <Link to="/contact" className="text-gray-700 hover:text-gray-900 px-4">Contacto</Link>
+          <Link to="/terms" className="text-gray-700 hover:text-gray-900 px-4">Términos y Condiciones</Link>
           <button
             onClick={() => setLocationModalOpen(true)}
             className="flex items-center text-gray-700 hover:text-gray-900"
