@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { FaUserCircle, FaShoppingCart, FaBars, FaSignInAlt, FaUserPlus, FaMapMarkerAlt } from 'react-icons/fa';
+import { FaUserCircle, FaShoppingCart, FaBars, FaSignInAlt, FaUserPlus, FaMapMarkerAlt, FaSearch } from 'react-icons/fa';
 import { useCart } from '../contexts/CartContext';
 import { auth } from '../../firebaseConfig';
 import LocationModal from '../LocationModal/LocationModal';
+import productsData from '../../data/products.json'; // Asegúrate de tener el archivo products.json en esta ruta
 
 const Header = () => {
-  const { cartCount } = useCart();
+  const { cartItems } = useCart();
   const [user, setUser] = useState(null);
   const [isLocationModalOpen, setLocationModalOpen] = useState(false);
   const [location, setLocation] = useState('');
+  const [searchTerm, setSearchTerm] = useState('');
+  const [filteredProducts, setFilteredProducts] = useState([]);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -21,6 +24,24 @@ const Header = () => {
   const handleLocationSave = (newLocation) => {
     setLocation(newLocation);
     alert(`Ubicación guardada: ${newLocation}`);
+  };
+
+  const handleSearch = () => {
+    if (searchTerm === '') {
+      setFilteredProducts([]);
+    } else {
+      const filtered = productsData.filter(product =>
+        product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        product.category.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      setFilteredProducts(filtered);
+    }
+  };
+
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter') {
+      handleSearch();
+    }
   };
 
   return (
@@ -41,12 +62,21 @@ const Header = () => {
           </Link>
         </div>
         {/* Search Bar */}
-        <div className="flex-1 mx-6">
+        <div className="flex items-center flex-1 mx-6">
           <input 
             type="text" 
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            onKeyDown={handleKeyDown}
             placeholder="Buscar en Falabella.com" 
-            className="w-full px-4 py-2 border rounded-full focus:outline-none focus:border-green-600"
+            className="w-full px-4 py-2 border rounded-l-full focus:outline-none focus:border-green-600"
           />
+          <button
+            onClick={handleSearch}
+            className="bg-green-600 text-white px-4 py-2 rounded-r-full"
+          >
+            <FaSearch />
+          </button>
         </div>
         {/* User and Cart Icons */}
         <div className="flex items-center space-x-4">
@@ -77,9 +107,9 @@ const Header = () => {
           )}
           <Link to="/cart" className="flex items-center text-gray-700 hover:text-gray-900">
             <FaShoppingCart size={24} />
-            {cartCount > 0 && (
+            {cartItems.length > 0 && (
               <span className="ml-1 text-sm bg-red-600 text-white rounded-full w-5 h-5 flex items-center justify-center">
-                {cartCount}
+                {cartItems.length}
               </span>
             )}
           </Link>

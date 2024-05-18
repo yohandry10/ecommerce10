@@ -41,4 +41,3 @@ const useCart = () => {
 };
 
 export { CartProvider, useCart };
-  

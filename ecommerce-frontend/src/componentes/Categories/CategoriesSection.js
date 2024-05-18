@@ -88,7 +88,7 @@ const CategoriesSection = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {categories.map((category, index) => (
           <div key={index} className="bg-white rounded-lg shadow-md overflow-hidden">
-            <img src={category.portada} alt={category.name} className="w-full h-48 object-cover" />
+            <img src={category.portada} alt={category.name} className="w-full h-64 object-cover" />
             <div className="p-4">
               <h3 className="text-xl font-bold text-gray-900">{category.name}</h3>
               <div className="grid grid-cols-1 gap-2 mt-4">

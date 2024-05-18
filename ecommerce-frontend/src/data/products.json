@@ -1,0 +1,22 @@
+[
+    {
+      "id": 1,
+      "name": "Producto Deportivo 1",
+      "price": 99,
+      "category": "Deportivo"
+    },
+    {
+      "id": 2,
+      "name": "Producto Deportivo 2",
+      "price": 199,
+      "category": "Deportivo"
+    },
+    {
+      "id": 3,
+      "name": "Polo 1",
+      "price": 29,
+      "category": "Polos"
+    }
+  
+  ]
+  

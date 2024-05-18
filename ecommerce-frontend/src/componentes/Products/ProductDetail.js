@@ -1,13 +1,14 @@
+// src/componentes/Products/ProductDetail.js
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { useCart } from '../../componentes/contexts/CartContext'; // Asegúrate de que esta ruta sea correcta
-import Reviews from '../Products/Reviews'; // Asegúrate de que esta ruta sea correcta
-import WishlistButton from '../Wishlist/WishlistButton'; // Asegúrate de que esta ruta sea correcta
+import { useCart } from '../../componentes/contexts/CartContext';
+import Reviews from '../Products/Reviews';
+import WishlistButton from '../Wishlist/WishlistButton';
 
 const ProductDetail = ({ products, reviews }) => {
   const { id } = useParams();
   const { addToCart } = useCart();
-  const product = products.find(p => p.id === parseInt(id));
+  const product = products.find(p => p.id === parseInt(id, 10));
 
   if (!product) {
     return <p>Producto no encontrado</p>;
