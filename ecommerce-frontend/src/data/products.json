@@ -1,22 +1,11 @@
 [
-    {
-      "id": 1,
-      "name": "Producto Deportivo 1",
-      "price": 99,
-      "category": "Deportivo"
-    },
-    {
-      "id": 2,
-      "name": "Producto Deportivo 2",
-      "price": 199,
-      "category": "Deportivo"
-    },
-    {
-      "id": 3,
-      "name": "Polo 1",
-      "price": 29,
-      "category": "Polos"
-    }
-  
-  ]
-  
+  { "id": 1, "name": "Producto Deportivo 1", "price": 99, "category": "Deportivo" },
+  { "id": 2, "name": "Producto Deportivo 2", "price": 199, "category": "Deportivo" },
+  { "id": 3, "name": "Producto Deportivo 3", "price": 299, "category": "Deportivo" },
+  { "id": 4, "name": "Polo 1", "price": 29, "category": "Polos" },
+  { "id": 5, "name": "Polo 2", "price": 39, "category": "Polos" },
+  { "id": 6, "name": "Polo 3", "price": 49, "category": "Polos" },
+  { "id": 7, "name": "TV 1", "price": 499, "category": "Televisores" },
+  { "id": 8, "name": "TV 2", "price": 599, "category": "Televisores" },
+  { "id": 9, "name": "TV 3", "price": 699, "category": "Televisores" }
+]

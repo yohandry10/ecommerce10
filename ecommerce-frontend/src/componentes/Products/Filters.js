@@ -1,6 +1,6 @@
 // src/components/Product/Filters.js
 import React from 'react';
-import './Filters.css';
+
 
 const Filters = ({ categories, selectedCategory, setSelectedCategory, sortOptions, selectedSort, setSelectedSort }) => {
   return (
