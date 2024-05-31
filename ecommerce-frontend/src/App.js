@@ -20,23 +20,35 @@ import MainLayout from './componentes/MainLayout/MainLayout';
 import { CartProvider } from './componentes/contexts/CartContext';
 import { WishlistProvider } from './componentes/contexts/WishlistContext';
 import { NotificationProvider } from './componentes/contexts/NotificationContext';
-import productsData from './data/products.json';
 
 function App() {
   const [searchResults, setSearchResults] = useState([]);
 
-  const handleSearch = (query) => {
+  const handleSearch = async (query) => {
+    console.log('Query received in App:', query);
     if (!query) {
       setSearchResults([]);
       return;
     }
 
-    const filtered = productsData.filter(product => {
-      const nameMatch = product.name ? product.name.toLowerCase().includes(query.toLowerCase()) : false;
-      const categoryMatch = product.category ? product.category.toLowerCase().includes(query.toLowerCase()) : false;
-      return nameMatch || categoryMatch;
-    });
-    setSearchResults(filtered);
+    try {
+      const response = await fetch('http://localhost:4000/api/products');
+      const products = await response.json();
+      console.log('Products fetched:', products);
+
+      const normalizedQuery = query.toLowerCase().trim();
+      const filtered = products.filter(product => {
+        const nameMatch = product.name.toLowerCase().includes(normalizedQuery);
+        const categoryMatch = product.category.toLowerCase().includes(normalizedQuery);
+        console.log(`Checking product: ${product.name}, nameMatch: ${nameMatch}, categoryMatch: ${categoryMatch}`);
+        return nameMatch || categoryMatch;
+      });
+
+      console.log('Filtered products:', filtered);
+      setSearchResults(filtered);
+    } catch (error) {
+      console.error('Error fetching products:', error);
+    }
   };
 
   return (
@@ -55,7 +67,7 @@ function App() {
                   <Route path="/register" element={<Register />} />
                   <Route path="/mypurchases" element={<MyPurchases />} />
                   <Route path="/categories" element={<CategoriesSection />} />
-                  <Route path="/product/:id" element={<ProductDetail products={productsData} reviews={[]} />} />
+                  <Route path="/product/:id" element={<ProductDetail />} />
                   <Route path="/cart" element={<Cart />} />
                   <Route path="/profile" element={<Profile />} />
                   <Route path="/offers" element={<Offers />} />

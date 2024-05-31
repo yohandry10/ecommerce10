@@ -1,12 +1,14 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import './index.css';
 import App from './App';
 import { CartProvider } from './componentes/contexts/CartContext';
 import { WishlistProvider } from './componentes/contexts/WishlistContext';
 import { NotificationProvider } from './componentes/contexts/NotificationContext';
 
-ReactDOM.render(
+const container = document.getElementById('root');
+const root = createRoot(container);
+root.render(
   <React.StrictMode>
     <CartProvider>
       <WishlistProvider>
@@ -15,6 +17,5 @@ ReactDOM.render(
         </NotificationProvider>
       </WishlistProvider>
     </CartProvider>
-  </React.StrictMode>,
-  document.getElementById('root')
+  </React.StrictMode>
 );
