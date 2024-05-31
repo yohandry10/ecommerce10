@@ -1,0 +1,4 @@
+# Ignorar el archivo .env en la raíz
+.env
+package.json
+package-lock.json

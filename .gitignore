@@ -10,7 +10,9 @@ Thumbs.db
 
 # Dependencias
 node_modules/
-vendor/
+# Ignorar el archivo .env en la raíz
+.env
+
 
 # Compilados
 *.class
@@ -44,3 +46,6 @@ __pycache__/
 # Directorios de cobertura de pruebas
 coverage/
 .nyc_output/
+.env
+
+package-lock.json
